@@ -12,10 +12,9 @@
 
 @interface Medicine : NSObject
 
-@property (nonatomic, strong) PFFile *imageFile;
 //
 @property (nonatomic, strong) NSString *medID;
-@property (nonatomic, strong) PFFile *medImage;
+@property (nonatomic, strong) PFFile *medImageFile;
 //@property (nonatomic, strong) NSString *medCode;
 //
 @property (nonatomic, strong) NSString *medMerEngName;

@@ -10,10 +10,9 @@
 
 @implementation Medicine
 
-@synthesize imageFile;
 
 @synthesize medID;
-@synthesize medImage;
+@synthesize medImageFile;
 //@synthesize medCode;
 
 @synthesize medMerEngName;

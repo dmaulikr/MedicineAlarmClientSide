@@ -11,11 +11,8 @@
 #import <ParseUI/ParseUI.h>
 #import <Bolts/Bolts.h>
 
-@interface MedicineTableViewController : PFQueryTableViewController
+@interface MedicineTableViewController : PFQueryTableViewController <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) PFObject *pfObject;
++(void)downloadAnimation;
 
-
-
--(void)download;
 @end

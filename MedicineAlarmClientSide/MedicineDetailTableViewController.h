@@ -12,8 +12,12 @@
 #import <ParseUI/ParseUI.h>
 #import <Bolts/Bolts.h>
 
-@interface MedicineDetailTableViewController : UITableViewController
+
+@interface MedicineDetailTableViewController : UITableViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) Medicine *mediDetail;
 @property (strong, nonatomic) NSString *receiveObjectId;
+
+
+-(NSMutableString *)filenameEncoderFromString:(NSMutableString *)string;
 @end

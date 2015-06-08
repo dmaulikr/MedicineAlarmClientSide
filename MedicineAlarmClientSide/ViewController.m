@@ -57,7 +57,7 @@
     
     
 }
-
+/*
 -(void)test {
     // create a uitoolbar
     self.testToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 367, 320, 44)];
@@ -76,6 +76,7 @@
     self.textPickerView.delegate = self;
     self.textPickerView.dataSource = self;
 }
+ */
 
 -(void)keyboardShow {
     
@@ -135,13 +136,6 @@
 
     // commit animations
     [UIView commitAnimations];
-    
-}
-- (IBAction)mediBtnClicked:(id)sender {
-    UINavigationController *unc = [self.storyboard instantiateViewControllerWithIdentifier:@"detailTableViewRootVC"];
-    // segue to rootvc of MedicineDetailViewController
-    
-    MedicineDetailTableViewController *detailTableVC = (MedicineDetailTableViewController *)[unc topViewController];
     
 }
 

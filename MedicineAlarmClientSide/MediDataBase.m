@@ -82,7 +82,7 @@ MediDataBase *shareInstance;
 }
 
 // add by col
--(void)insertMediID:(NSString *)mediID andMediImage:(PFFile *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice {
+-(void)insertMediID:(NSString *)mediID andMediImage:(UIImage *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice {
     if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice) values (?,?,?,?,?,?,?,?,?,?)", mediID, image, merEng, merChi, science, category, ingredient, usage, sideEffect, notice]) {
         NSLog(@"Could not insert data:\n%@",[db lastErrorMessage]);
     };
