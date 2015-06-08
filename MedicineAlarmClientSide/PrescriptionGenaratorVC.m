@@ -7,26 +7,32 @@
 //
 
 #import "PrescriptionGenaratorVC.h"
-#import "PresTextFDelegate.h"
+
 #import "PopDosageVC.h"
 #import "Medicine.h"
+
+#import "MediDataSingleton.h"
 
 
 #define TEXTFIELDWIDTH 250
 #define TEXTFIELDHEIGHT 30
 #define TEXTVIEWHEIGHT 80
 
-@interface PrescriptionGenaratorVC () <UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate, PresTextFieldDelegate>
+@interface PrescriptionGenaratorVC () <UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet UIStepper *medQuantityStepper;
 @property (retain, nonatomic) IBOutlet UILabel *stepLabel;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *medNoSegment;
+
+
 @property (retain, nonatomic) UIButton *textButton;
 
 @property (weak, nonatomic) NSMutableArray *segmentObject;
 
 @property (retain, nonatomic) UITextField *textField0;
 @property (retain, nonatomic) UITextField *textField1;
+
+@property (retain, nonatomic) UITextField *medNameTF;
 
 @property (retain, nonatomic) UITextView *textView0;
 @property (retain, nonatomic) UITextView *textView1;
@@ -143,17 +149,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)didPressAddButtonFromTVC {
-//    self.medName1 = (UITextField *)[self.scrollView viewWithTag:101];
-    NSLog(@"VC:%@", self.medName);
-    [_textField1 setText:self.medName];
-    
-    Medicine *medicine = [[Medicine alloc] init];
-    NSLog(@"VC:%@", medicine.medMerEngName);
-}
-
-
-
 #pragma mark - stepper
 -(void)didStepperClicked:(UIStepper *)sender {
     
@@ -182,6 +177,41 @@
 }
 
 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+#if 0
+    
+    PopDosageVC *dosageVC = [[PopDosageVC alloc] init];
+    UIPopoverController *popDosage = [[UIPopoverController alloc] initWithContentViewController:dosageVC];
+    [popDosage setDelegate:self];
+    if (textField.tag/100 == 1) {
+        NSLog(@"%@", textField.description);
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(textField.frame.origin.x-130, textField.frame.origin.y -120, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+    } else if (textField.tag/200 == 1) {
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(textField.frame.origin.x-130, textField.frame.origin.y -120, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+    } else if (textField.tag/300 == 1) {
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(450, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else if (textField.tag/400 == 1) {
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(650, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else if (textField.tag/500 == 1) {
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(850, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else if (textField.tag/600 == 1) {
+        [textField setBackgroundColor:[UIColor yellowColor]];
+        [popDosage presentPopoverFromRect:CGRectMake(1000, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    
+#else
+    
+    
+    
+#endif
+    return YES;
+}
 
 -(IBAction)medNoSegmentChanged:(id)segment {
     
@@ -195,7 +225,6 @@
         for (UITextField *textfield in self.scrollView.subviews) {
             if (textfield.tag <= 107) {
                 [textfield setEnabled:YES];
-                NSLog(@"kerker:%ld", (long)textfield.tag);
             } else [textfield setEnabled:NO];
         }
         for (UITextView *textView in self.scrollView.subviews) {
@@ -206,10 +235,10 @@
                 [_textView1 setEditable:YES];
 //                [textView setEditable:YES];
 //            } else [textView setEditable:NO];
-                NSLog(@"%ld", self.textView1.tag);
-                NSLog(@"hihi");
             }
         }
+//        _medNameTF = (UITextField *)[self.scrollView viewWithTag:101];
+        [self defineTextField:101];
     }
     // 2
     if (selectedIndex == 1) {
@@ -303,6 +332,30 @@
 #endif
 }
 
+-(void)didPressAddButtonFromTVC {
+
+    
+
+    [_medNameTF setText:[MediDataSingleton shareInstance].medName];
+    NSLog(@"fuck you :%@", [MediDataSingleton shareInstance].medName);
+    NSLog(@"fuck you tag:%ld", _medNameTF.tag);
+    [_medNameTF setNeedsLayout];
+}
+
+
+-(UITextField *)defineTextField:(NSInteger)tag {
+    
+    _medNameTF = (UITextField *)[self.scrollView viewWithTag:tag];
+    
+    NSLog(@"%ld", _medNameTF.tag);
+    return _medNameTF;
+}
+
+-(void) setTextFieldWhenClickedAdd:(UITextField *)sender {
+    
+    sender.text = [MediDataSingleton shareInstance].medName;
+}
+
 -(void)createTextFieldWithNSArray:(NSArray *)array {
     
 #define TEXTORIGINX 11
@@ -350,35 +403,6 @@
     }
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    
-    
-    PopDosageVC *dosageVC = [[PopDosageVC alloc] init];
-    UIPopoverController *popDosage = [[UIPopoverController alloc] initWithContentViewController:dosageVC];
-    [popDosage setDelegate:self];
-    if (textField.tag/100 == 1) {
-        NSLog(@"%@", textField.description);
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(textField.frame.origin.x-130, textField.frame.origin.y -120, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
-    } else if (textField.tag/200 == 1) {
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(textField.frame.origin.x-130, textField.frame.origin.y -120, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
-    } else if (textField.tag/300 == 1) {
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(450, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else if (textField.tag/400 == 1) {
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(650, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else if (textField.tag/500 == 1) {
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(850, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else if (textField.tag/600 == 1) {
-        [textField setBackgroundColor:[UIColor yellowColor]];
-        [popDosage presentPopoverFromRect:CGRectMake(1000, 100, 200, 200) inView:self.scrollView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-    return NO;
-}
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     
@@ -388,21 +412,6 @@
         [textView setBackgroundColor:[UIColor redColor]];
     }
     return YES;
-}
-
--(void)setTextFieldAble:(NSInteger)textfieldIndex {
-    
-        [_textField1 setEnabled:NO];
-}
-
-
--(void)setTextFieldEnable:(BOOL)able {
-    
-    if (_textField1.tag <= 108) {
-        for (int i = 1 ; i<= 7; i++) {
-            [_textField1 setEnabled:able];
-        }
-    }
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

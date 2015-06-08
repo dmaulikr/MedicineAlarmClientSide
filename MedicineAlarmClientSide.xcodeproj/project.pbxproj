@@ -37,6 +37,7 @@
 		F641FC7F1B09DC0F00BAB087 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F641FC631B09DB8D00BAB087 /* ParseUI.framework */; };
 		F641FC851B09DC3400BAB087 /* Medicine.m in Sources */ = {isa = PBXBuildFile; fileRef = F641FC821B09DC3400BAB087 /* Medicine.m */; };
 		F65B28321B0B9F1800758765 /* MediDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F65B28311B0B9F1800758765 /* MediDataBase.m */; };
+		F65FDEDA1B25A02C001F85E9 /* MediDataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = F65FDED91B25A02C001F85E9 /* MediDataSingleton.m */; };
 		F67380AF1B10FE3B00B61C40 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F67380AE1B10FE3B00B61C40 /* MBProgressHUD.m */; };
 		F67380BD1B10FE4800B61C40 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F67380B11B10FE4800B61C40 /* 37x-Checkmark.png */; };
 		F67380BE1B10FE4800B61C40 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F67380B21B10FE4800B61C40 /* 37x-Checkmark@2x.png */; };
@@ -74,7 +75,6 @@
 		F6CB444F1B0CFA5000E2BCDF /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = F65B282A1B0B9E6100758765 /* FMDatabasePool.m */; };
 		F6CB44501B0CFA5000E2BCDF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = F65B282C1B0B9E6100758765 /* FMDatabaseQueue.m */; };
 		F6CB44511B0CFA5000E2BCDF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F65B282F1B0B9E6100758765 /* FMResultSet.m */; };
-		F6D7CCE11B216D80003AC402 /* PresTextFDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7CCE01B216D80003AC402 /* PresTextFDelegate.m */; };
 		F6D7CCEA1B21961D003AC402 /* PopDaysVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7CCE91B21961D003AC402 /* PopDaysVC.m */; };
 		F6D7CCED1B21963D003AC402 /* PopFrequencyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7CCEC1B21963D003AC402 /* PopFrequencyVC.m */; };
 		F6D7CCF01B21964E003AC402 /* PopDosageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7CCEF1B21964E003AC402 /* PopDosageVC.m */; };
@@ -146,6 +146,8 @@
 		F65B282F1B0B9E6100758765 /* FMResultSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		F65B28301B0B9F1800758765 /* MediDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediDataBase.h; sourceTree = "<group>"; };
 		F65B28311B0B9F1800758765 /* MediDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediDataBase.m; sourceTree = "<group>"; };
+		F65FDED81B25A02C001F85E9 /* MediDataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediDataSingleton.h; sourceTree = "<group>"; };
+		F65FDED91B25A02C001F85E9 /* MediDataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediDataSingleton.m; sourceTree = "<group>"; };
 		F67380AD1B10FE3B00B61C40 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		F67380AE1B10FE3B00B61C40 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F67380B11B10FE4800B61C40 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -185,8 +187,6 @@
 		F6B544C91B0E3C2C009D56CA /* MessageEntryInputField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageEntryInputField@2x.png"; sourceTree = "<group>"; };
 		F6CB444B1B0CEAED00E2BCDF /* Medicine_database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Medicine_database.sqlite; sourceTree = "<group>"; };
 		F6D4A6D41B1FF9DD007F1E6A /* PrescriptionCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrescriptionCellDelegate.h; sourceTree = "<group>"; };
-		F6D7CCDF1B216D80003AC402 /* PresTextFDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresTextFDelegate.h; sourceTree = "<group>"; };
-		F6D7CCE01B216D80003AC402 /* PresTextFDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresTextFDelegate.m; sourceTree = "<group>"; };
 		F6D7CCE81B21961D003AC402 /* PopDaysVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopDaysVC.h; sourceTree = "<group>"; };
 		F6D7CCE91B21961D003AC402 /* PopDaysVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopDaysVC.m; sourceTree = "<group>"; };
 		F6D7CCEB1B21963D003AC402 /* PopFrequencyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopFrequencyVC.h; path = ../PopFrequencyVC.h; sourceTree = "<group>"; };
@@ -317,8 +317,8 @@
 				F6ADDAD61B1EE47800C152D8 /* PrescriptionCell.h */,
 				F6ADDAD71B1EE47800C152D8 /* PrescriptionCell.m */,
 				F6D4A6D41B1FF9DD007F1E6A /* PrescriptionCellDelegate.h */,
-				F6D7CCDF1B216D80003AC402 /* PresTextFDelegate.h */,
-				F6D7CCE01B216D80003AC402 /* PresTextFDelegate.m */,
+				F65FDED81B25A02C001F85E9 /* MediDataSingleton.h */,
+				F65FDED91B25A02C001F85E9 /* MediDataSingleton.m */,
 				F69E34C51B1E004A00760A6B /* PrescriptionGenaratorVC.h */,
 				F69E34C61B1E004A00760A6B /* PrescriptionGenaratorVC.m */,
 				F69E34C81B1E008600760A6B /* PrescriptionGeneratorTVC.h */,
@@ -560,11 +560,11 @@
 				F6CB44511B0CFA5000E2BCDF /* FMResultSet.m in Sources */,
 				F65B28321B0B9F1800758765 /* MediDataBase.m in Sources */,
 				F641FC331B09DB2C00BAB087 /* ViewController.m in Sources */,
+				F65FDEDA1B25A02C001F85E9 /* MediDataSingleton.m in Sources */,
 				F69422941B1475D40013A3DB /* DefineiOSVersion.m in Sources */,
 				F641FC591B09DB7100BAB087 /* MedicineTableViewController.m in Sources */,
 				F6ADDAD81B1EE47800C152D8 /* PrescriptionCell.m in Sources */,
 				F640C1021B14B6E600E3308A /* AddMedicineTableViewController.m in Sources */,
-				F6D7CCE11B216D80003AC402 /* PresTextFDelegate.m in Sources */,
 				F641FC2D1B09DB2C00BAB087 /* main.m in Sources */,
 				F641FC851B09DC3400BAB087 /* Medicine.m in Sources */,
 				F6D7CCF01B21964E003AC402 /* PopDosageVC.m in Sources */,

@@ -7,14 +7,19 @@
 //
 
 #import "PrescriptionCell.h"
+#import "MediDataSingleton.h"
 
 @implementation PrescriptionCell
 
+
 -(void)buttonClicked:(UIButton *)sender {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickOnCellAtIndex:withString:)]) {
-        [self.delegate didClickOnCellAtIndex:_cellIndex withString:self.medMerChiLabel.text];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickOnCellAtIndex:withData:)]) {
+        [self.delegate didClickOnCellAtIndex:_cellIndex withData:self.medMerChiLabel.text];
+    
+
     }
+    
 }
 
 - (void)awakeFromNib {

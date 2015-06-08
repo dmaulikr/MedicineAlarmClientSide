@@ -13,6 +13,8 @@
 #import "PrescriptionCell.h"
 #import "PrescriptionGenaratorVC.h"
 
+#import "MediDataSingleton.h"
+
 static NSString *medicineClassName = @"MedicineMerchadiseName";
 
 @interface PrescriptionGeneratorTVC () {
@@ -132,20 +134,18 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
                homeBtnFrame.size.width, homeBtnFrame.size.height);
 }
 
-- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withString:(NSString *)string
-{
+- (void)didClickOnCellAtIndex:(NSInteger)cellIndex withData:(id)data {
+    
+    [MediDataSingleton shareInstance].medName = data;
     // Do additional actions as required.
-    NSLog(@"Cell at Index: %ld clicked.\n Data received : %@", (long)cellIndex, string);
-    PrescriptionGenaratorVC *pgvc = [[PrescriptionGenaratorVC alloc] init];
-    Medicine *medicine = [[Medicine alloc] init];
-    medicine.medMerEngName = (NSString *)string;
-    pgvc.medName = (NSString *)string;
-    NSLog(@"%@", pgvc.medName);
-    NSLog(@"%@", medicine.medMerEngName);
+    NSLog(@"Cell at Index: %ld clicked.\n Data received : %@", (long)cellIndex, data);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"add" object:nil];
-
+    
+    
+    
 }
+
 
 #pragma mark - Table view data source
 
