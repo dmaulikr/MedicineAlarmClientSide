@@ -9,5 +9,7 @@
 #import "PopFrequencyVC.h"
 
 @implementation PopFrequencyVC
+- (IBAction)frequencyBtnClicked:(id)sender {
+}
 
 @end

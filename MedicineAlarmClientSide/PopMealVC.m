@@ -9,5 +9,7 @@
 #import "PopMealVC.h"
 
 @implementation PopMealVC
+- (IBAction)mealBtnClicked:(id)sender {
+}
 
 @end

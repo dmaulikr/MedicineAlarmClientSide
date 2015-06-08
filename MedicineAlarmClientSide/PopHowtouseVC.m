@@ -9,5 +9,7 @@
 #import "PopHowtouseVC.h"
 
 @implementation PopHowtouseVC
+- (IBAction)howToUseBtnClicked:(id)sender {
+}
 
 @end
