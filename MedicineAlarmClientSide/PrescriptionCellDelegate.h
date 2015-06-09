@@ -18,7 +18,8 @@
 @protocol CellDelegate <NSObject>
 
 - (void)didClickOnCellAtIndex:(NSInteger)cellIndex withData:(id)data;
+/*
 - (void)didClickOnCellAtIndex:(NSInteger)cellIndex withString:(NSString *)string;
 -(void)didClickOnCellAtIndex:(NSInteger)cellIndex withObject:(PFObject *)object;
-
+*/
 @end
