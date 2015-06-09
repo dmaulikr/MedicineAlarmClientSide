@@ -9,5 +9,7 @@
 #import "PopDaysVC.h"
 
 @implementation PopDaysVC
+- (IBAction)daysBtnClicked:(id)sender {
+}
 
 @end

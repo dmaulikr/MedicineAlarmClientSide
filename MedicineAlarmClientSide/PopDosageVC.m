@@ -9,5 +9,11 @@
 #import "PopDosageVC.h"
 
 @implementation PopDosageVC
+- (IBAction)dosagePCClicked:(id)sender {
+}
+- (IBAction)dosageDropClicked:(id)sender {
+}
+- (IBAction)dosageAmountClicked:(id)sender {
+}
 
 @end

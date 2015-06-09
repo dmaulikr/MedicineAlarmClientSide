@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jv5-Uy-pbM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jv5-Uy-pbM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -10,7 +10,7 @@
         <!--頻率PopoverVC-->
         <scene sceneID="JOJ-bU-WR1">
             <objects>
-                <viewController title="頻率PopoverVC" id="O4P-tF-hvI" sceneMemberID="viewController">
+                <viewController title="頻率PopoverVC" id="O4P-tF-hvI" customClass="PopFrequencyVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fAr-ct-Tdp"/>
                         <viewControllerLayoutGuide type="bottom" id="aM1-8n-HU7"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="頻率：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ac-Fm-b3F">
-                                <rect key="frame" x="8" y="4" width="51" height="21"/>
+                                <rect key="frame" x="8" y="4" width="51" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="2Ad-bN-hkr"/>
                                     <constraint firstAttribute="width" constant="51" id="Nov-SO-VVP"/>
@@ -36,6 +36,74 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCs-e8-Dir">
                                 <rect key="frame" x="4" y="24" width="242" height="222"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2x-OF-2QM">
+                                        <rect key="frame" x="8" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.11764706671237946" green="0.55686277151107788" blue="0.090196080505847931" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="QD">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="fbS-9o-pIX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="piU-ed-LjQ">
+                                        <rect key="frame" x="142" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="BID">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="aRd-Tz-hxW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZH6-tE-xrc">
+                                        <rect key="frame" x="8" y="52" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="BID">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="iJE-2m-lLu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NlN-C9-64o">
+                                        <rect key="frame" x="142" y="52" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="TID">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="APz-LF-hLq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCJ-33-Mff">
+                                        <rect key="frame" x="8" y="96" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="QID">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="Sls-Wr-tBn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xL-mO-aNC">
+                                        <rect key="frame" x="142" y="96" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="QN">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="frequencyBtnClicked:" destination="O4P-tF-hvI" eventType="touchUpInside" id="VDG-w6-sCO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="0.70937372098806373" blue="0.15418607818402974" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -2165,7 +2233,7 @@
         <!--天數PopoverVC-->
         <scene sceneID="eo5-Ij-qjO">
             <objects>
-                <viewController title="天數PopoverVC" id="C87-IF-a0S" sceneMemberID="viewController">
+                <viewController title="天數PopoverVC" id="C87-IF-a0S" customClass="PopDaysVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0aF-ZQ-NdL"/>
                         <viewControllerLayoutGuide type="bottom" id="PXH-8p-jrz"/>
@@ -2191,6 +2259,85 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhE-4T-WKf">
                                 <rect key="frame" x="4" y="24" width="242" height="222"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnK-mU-iA6">
+                                        <rect key="frame" x="8" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="一天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="VkP-9L-9gA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMj-Fg-4Dp">
+                                        <rect key="frame" x="142" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="兩天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="2yj-0f-bub"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-5I-NJl">
+                                        <rect key="frame" x="8" y="55" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="三天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="5al-JZ-sAN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJB-IP-xsl">
+                                        <rect key="frame" x="142" y="55" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="四天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="g36-MY-X0k"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWm-mW-s0h">
+                                        <rect key="frame" x="8" y="96" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="五天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="g9Q-pW-X2B"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nf9-oZ-brY">
+                                        <rect key="frame" x="142" y="96" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="六天">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="ysO-p4-nXj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="107" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-92-x8T">
+                                        <rect key="frame" x="8" y="145" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="一星期">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="daysBtnClicked:" destination="C87-IF-a0S" eventType="touchUpInside" id="efW-IV-BiX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="0.70937372099999996" blue="0.15418607819999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -2227,7 +2374,7 @@
         <!--劑量PopoverVC-->
         <scene sceneID="BnM-ih-2SX">
             <objects>
-                <viewController storyboardIdentifier="dosageVC" title="劑量PopoverVC" id="UFL-Zt-eIO" customClass="DosageVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dosageVC" title="劑量PopoverVC" id="UFL-Zt-eIO" customClass="PopDosageVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Re-jp-J5I"/>
                         <viewControllerLayoutGuide type="bottom" id="IIN-4K-rF0"/>
@@ -2253,6 +2400,81 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMs-Je-D08">
                                 <rect key="frame" x="4" y="24" width="242" height="222"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLn-79-U0j">
+                                        <rect key="frame" x="8" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="PC">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dosagePCClicked:" destination="UFL-Zt-eIO" eventType="touchUpInside" id="BLa-k5-mK8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvD-ks-3ib">
+                                        <rect key="frame" x="142" y="8" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="滴">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dosageDropClicked:" destination="UFL-Zt-eIO" eventType="touchUpInside" id="hE2-1A-9eW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hF-k9-Uee">
+                                        <rect key="frame" x="8" y="63" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="0.5">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dosageAmountClicked:" destination="UFL-Zt-eIO" eventType="touchUpInside" id="XGv-hZ-hVu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAo-AD-plG">
+                                        <rect key="frame" x="142" y="63" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="103" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8d-Or-9Nd">
+                                        <rect key="frame" x="8" y="109" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="1.5">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="104" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gt0-to-fol">
+                                        <rect key="frame" x="142" y="109" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIe-Dx-qx9">
+                                        <rect key="frame" x="8" y="154" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="2.5">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LbE-fP-1sC">
+                                        <rect key="frame" x="142" y="154" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="0.70937372099999996" blue="0.15418607819999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -2289,7 +2511,7 @@
         <!--飯前後PopoverVC-->
         <scene sceneID="WQl-fC-VC3">
             <objects>
-                <viewController title="飯前後PopoverVC" id="BCT-aN-i5f" sceneMemberID="viewController">
+                <viewController title="飯前後PopoverVC" id="BCT-aN-i5f" customClass="PopMealVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1f4-85-X2a"/>
                         <viewControllerLayoutGuide type="bottom" id="Tur-YP-tGG"/>
@@ -2299,7 +2521,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="飯前後：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNW-II-Yw1">
-                                <rect key="frame" x="8" y="4" width="68" height="21"/>
+                                <rect key="frame" x="8" y="4" width="68" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UNx-nZ-jXF"/>
                                     <constraint firstAttribute="width" constant="68" id="X6E-lf-VM0"/>
@@ -2315,6 +2537,30 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nmh-kK-Ggn">
                                 <rect key="frame" x="4" y="24" width="242" height="222"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VC4-J7-7YJ">
+                                        <rect key="frame" x="8" y="82" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="AC">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mealBtnClicked:" destination="BCT-aN-i5f" eventType="touchUpInside" id="kTR-p7-xd8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvk-2s-cxB">
+                                        <rect key="frame" x="142" y="82" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="PC">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mealBtnClicked:" destination="BCT-aN-i5f" eventType="touchUpInside" id="hSk-aT-GLS"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="0.70937372099999996" blue="0.15418607819999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -2346,7 +2592,93 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9Q-S7-LbW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1462" y="-2245"/>
+            <point key="canvasLocation" x="1461" y="-2245"/>
+        </scene>
+        <!--途徑PopoverVC-->
+        <scene sceneID="TEY-Et-rqG">
+            <objects>
+                <viewController title="途徑PopoverVC" id="Myz-SQ-wcG" customClass="PopHowtouseVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6uq-7z-mTO"/>
+                        <viewControllerLayoutGuide type="bottom" id="u8S-yS-I15"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZWx-3c-Nwa">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="途徑" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJL-Bn-iKi">
+                                <rect key="frame" x="8" y="4" width="34" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="9iY-1g-ffE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="9iY-1g-ffE"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ba-ci-AhP">
+                                <rect key="frame" x="4" y="24" width="242" height="222"/>
+                                <subviews>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jN-IM-gUs">
+                                        <rect key="frame" x="8" y="80" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="口服">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="howToUseBtnClicked:" destination="Myz-SQ-wcG" eventType="touchUpInside" id="LtV-Lw-eMs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfz-ri-UIf">
+                                        <rect key="frame" x="142" y="80" width="92" height="30"/>
+                                        <color key="backgroundColor" red="0.1176470667" green="0.55686277149999996" blue="0.090196080509999998" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="滴藥">
+                                            <color key="titleColor" red="0.48840128999999999" green="1" blue="0.36498154020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="howToUseBtnClicked:" destination="Myz-SQ-wcG" eventType="touchUpInside" id="sLz-Eb-nLx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.70937372099999996" blue="0.15418607819999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NJL-Bn-iKi" firstAttribute="leading" secondItem="ZWx-3c-Nwa" secondAttribute="leadingMargin" constant="-8" id="6nb-9l-P8W"/>
+                            <constraint firstItem="2Ba-ci-AhP" firstAttribute="leading" secondItem="ZWx-3c-Nwa" secondAttribute="leadingMargin" constant="-12" id="Isu-Av-krE"/>
+                            <constraint firstItem="NJL-Bn-iKi" firstAttribute="top" secondItem="6uq-7z-mTO" secondAttribute="bottom" constant="4" id="Lq9-lX-eu0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Ba-ci-AhP" secondAttribute="trailing" constant="-12" id="Pmv-Ba-7zc"/>
+                            <constraint firstItem="u8S-yS-I15" firstAttribute="top" secondItem="NJL-Bn-iKi" secondAttribute="bottom" constant="225" id="VVl-J4-yTb"/>
+                            <constraint firstItem="2Ba-ci-AhP" firstAttribute="top" secondItem="6uq-7z-mTO" secondAttribute="bottom" constant="24" id="evb-g0-PMF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Ba-ci-AhP" secondAttribute="trailing" constant="-8" id="i3H-1L-KYu"/>
+                            <constraint firstItem="u8S-yS-I15" firstAttribute="top" secondItem="2Ba-ci-AhP" secondAttribute="bottom" constant="4" id="luX-o0-9nm"/>
+                            <constraint firstItem="u8S-yS-I15" firstAttribute="top" secondItem="2Ba-ci-AhP" secondAttribute="bottom" constant="8" id="lx9-2E-rBG"/>
+                            <constraint firstItem="2Ba-ci-AhP" firstAttribute="leading" secondItem="ZWx-3c-Nwa" secondAttribute="leadingMargin" constant="-8" id="r6C-Ld-ukA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NJL-Bn-iKi" secondAttribute="trailing" constant="167" id="vtM-Xw-9lZ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vtM-Xw-9lZ"/>
+                                <exclude reference="i3H-1L-KYu"/>
+                                <exclude reference="r6C-Ld-ukA"/>
+                                <exclude reference="lx9-2E-rBG"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="250"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O24-Sn-nq7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="-2245"/>
         </scene>
     </scenes>
     <resources>
