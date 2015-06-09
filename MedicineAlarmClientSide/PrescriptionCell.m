@@ -16,8 +16,6 @@
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didClickOnCellAtIndex:withData:)]) {
         [self.delegate didClickOnCellAtIndex:_cellIndex withData:self.medMerChiLabel.text];
-    
-
     }
     
 }

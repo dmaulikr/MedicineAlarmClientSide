@@ -142,8 +142,6 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"add" object:nil];
     
-    
-    
 }
 
 
