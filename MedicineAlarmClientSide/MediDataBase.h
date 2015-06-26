@@ -26,10 +26,10 @@
 -(NSString *)newMediID;
 
 // add by col
--(void)insertMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice;
+-(void)insertMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice andMedAdaptation:(NSString *)adapt;
 
 // edit
--(void)updateMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice;
+-(void)updateMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice andMedAdaptation:(NSString *)adapt;
 
 // delete
 -(void)deleteMediID:(NSString *)mediID;

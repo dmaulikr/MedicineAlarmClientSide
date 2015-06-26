@@ -14,25 +14,34 @@
 #import "MediDataBase.h"
 #import "MBProgressHUD.h"
 #import "DefineiOSVersion.h"
+#import "MediDataSingleton.h"
 
 static NSString *medicineClassName = @"MedicineMerchadiseName";
 
-@interface MedicineTableViewController () <UISearchBarDelegate> {
+@interface MedicineTableViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate, UISearchResultsUpdating> {
     
     UIBarButtonItem *optionButton;
     UIBarButtonItem *doneButton;
     UIBarButtonItem *addButton;
-//    UIButton *homeBtn;
     CGRect cgRectLandscap;
     CGRect cgRectPortrait;
-
+    BOOL scopeButtonPressedIndexNumber;
+    NSNumber *lastNumber;
 }
 
 
 @property (retain, nonatomic) UIButton *homeButton;
-
 @property (nonatomic) CGPoint homeBtnOriginPoint;
 
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+// Scope button type
+typedef NS_ENUM(NSInteger, UYLWorldFactsSearchScope)
+{
+    searchScopeEngName = 0,
+    searchScopeScienceName = 1
+};
 
 @end
 
@@ -65,7 +74,28 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-    // add barbuttonitem
+    // no seperate search results controller
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchBar.frame = CGRectMake(_searchController.searchBar.frame.origin.x, _searchController.searchBar.frame.origin.y, self.searchBar.frame.size.width, 44.0);
+    
+    // use table view controller to update the search results
+    self.searchController.searchResultsUpdater = self;
+    // do not want to dim the underlying content as we want to show the filtered results as the user types into searh bar
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    // UISearchController takes care of creating the search bar
+    self.searchController.searchBar.scopeButtonTitles =
+    @[NSLocalizedString(@"Merchadise Name", "英文商品名"),
+      NSLocalizedString(@"Science Name",@"英文學名")];
+    
+    [self.searchController.searchBar sizeToFit];
+    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    self.searchController.delegate = self;
+
+    self.searchResults = [NSMutableArray array];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangePreferredContentSize:) name:UIContentSizeCategoryDidChangeNotification object:nil];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -73,9 +103,14 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     
-    doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(setTableUnediting)];
-    optionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(optionActionSheet)];
+    UIButton *optionViewbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [optionViewbtn addTarget:self action:@selector(optionActionSheet) forControlEvents:UIControlEventTouchUpInside];
+    [optionViewbtn setBackgroundImage:[UIImage imageNamed:@"Menu-50-2.png"] forState:UIControlStateNormal];
+     
+    optionButton = [[UIBarButtonItem alloc] initWithCustomView:optionViewbtn];
+    
     addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddItemPage)];
+    
 
 
     cgRectLandscap = CGRectMake(12, 710, 40, 40);
@@ -87,7 +122,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     if (!self.homeButton) {
         self.homeButton = [[UIButton alloc] initWithFrame:cgRectLandscap];
         [self.homeButton addTarget:self action:@selector(homeBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-        [self.homeButton setImage:[UIImage imageNamed:@"home_button.png"] forState:UIControlStateNormal];
+        [self.homeButton setImage:[UIImage imageNamed:@"Home-50-2.png"] forState:UIControlStateNormal];
         CGSize homeBtnFrame = self.homeButton.frame.size;
         CGPoint homeBtnPint =
         CGPointMake(cgRectLandscap.origin.x, cgRectLandscap.origin.y);
@@ -105,6 +140,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     // refresh table
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable:) name:@"refreshTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshParse:) name:@"refreshParse" object:nil];
+    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
     
@@ -150,11 +186,11 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     */
-    /*
+    
     // load data from local ***the only way***
     [query fromLocalDatastore];
-    [query orderByAscending:@"medID"];
-    */
+    [query orderByAscending:@"medMerEngName"];
+    
 
     return query;
 }
@@ -216,14 +252,13 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 
 #pragma mark - NavigationItem
 // open a page for insert new item
-
 - (void)showAddItemPage{
     AddMedicineTableViewController *amtvc = [self.storyboard instantiateViewControllerWithIdentifier:@"addEditItemRootTVC"];
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     
     if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
         [self.splitViewController showDetailViewController:amtvc sender:nil];
-    } else {
+    } else if (UIDeviceOrientationIsPortrait(deviceOrientation)){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"增加資料時"
                                                         message:@"請保持裝置橫向" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
@@ -305,8 +340,11 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         }];
         // upload to parse
         UIAlertAction *syncAction = [UIAlertAction actionWithTitle:@"Sync" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+
+            NSLog(@"%@",[[MediDataBase shareInstance] queryMedi]);
+            [MedicineTableViewController downloadAnimation];
             //TODO:test
-//            [self syncFromParseAndLocal];
+            [self syncFromParseAndLocal];
             [self.tableView reloadData];
             
         }];
@@ -314,10 +352,11 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete All" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self deleteFromLocal];
         }];
+        /*
         // only download
         UIAlertAction *downloadAction = [UIAlertAction actionWithTitle:@"Download" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [MedicineTableViewController downloadAnimation];
-        }];
+        }];*/
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         
@@ -325,12 +364,13 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         [alertController addAction:deleteAction];
         [alertController addAction:syncAction];
         [alertController addAction:cancelAction];
+        /*
         [alertController addAction:downloadAction];
-        
+        */
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         //
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Sync" otherButtonTitles:@"Edit",@"Download", @"Delete All", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Sync" otherButtonTitles:@"Edit", @"Delete All", nil];
         
         [actionSheet showInView:self.view];
     }
@@ -349,10 +389,6 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
             break;
             
         case 2:
-            [MedicineTableViewController downloadAnimation];
-            break;
-            
-        case 3:
             [self deleteFromLocal];
             break;
             
@@ -384,17 +420,15 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 // a UITableViewCellStyleDefault style cell with the label being the first key in the object.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     
-
+    [tableView bringSubviewToFront:self.homeButton];
     
     static NSString *simpleTableIdentifier = @"MedicineDBCell";
     PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
         
-        
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-
     //TODO: UI and data ID
     //Configure the cell
     PFFile *thumbnail = [object objectForKey:@"medImageFile"];
@@ -412,14 +446,34 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     }];
     
     UILabel *engNameLabel = (UILabel *)[cell viewWithTag:101];
-    engNameLabel.text = [object objectForKey:@"medMerEngName"];
-
-    
     UILabel *chiNameLabel = (UILabel *)[cell viewWithTag:102];
-    chiNameLabel.text = [object objectForKey:@"medMerChiName"];
-
+    
+    // 三元運算 判別 原本資料跟搜尋後的資料
+    
+    object = (!self.searchController.active) ? self.objects[indexPath.row] : self.searchResults[indexPath.row];
+    
+        engNameLabel.text = [object objectForKey:@"medMerEngName"];
+        chiNameLabel.text = [object objectForKey:@"medMerChiName"];
+    
+    [tableView bringSubviewToFront:self.homeButton];
     
     return cell;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    // define objects or searchResult
+    if (self.searchController.active) {
+        
+        return self.searchResults.count;
+        
+    } else {
+        // get row number for next medId.
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        lastNumber = [formatter numberFromString:[NSString stringWithFormat:@"%lu", self.objects.count +1 ]];
+        [MediDataSingleton shareInstance].lastNumber = lastNumber;
+        
+        return self.objects.count;
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -447,7 +501,6 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        
     }
 }
 
@@ -470,6 +523,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     
     medicine.medIngredient = [object objectForKey:@"medIngredient"];
     medicine.medUsage = [object objectForKey:@"medUsage"];
+    medicine.medAdaptation = [object objectForKey:@"medAdaptation"];
     medicine.medSideEffect = [object objectForKey:@"medSideEffect"];
     medicine.medNotice = [object objectForKey:@"medNotice"];
     
@@ -515,9 +569,9 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 }
 
 -(void)refreshParse:(NSNotification *)notification {
-    // Reload the Medicines
-    [self loadObjects];
-    [self.tableView reloadData];
+        // Reload the Medicines
+        [self loadObjects];
+        [self.tableView reloadData];
 }
 
 -(void)objectsDidLoad:(NSError *)error {
@@ -560,6 +614,127 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 //        
 //    }
 //}
+
+#pragma mark -
+#pragma mark === UISearchBarDelegate ===
+#pragma mark -
+
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    [self updateSearchResultsForSearchController:self.searchController];
+}
+
+
+-(void)didChangePreferredContentSize:(NSNotification *)notification {
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - UISearchResultUpdating
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    NSString *searchString =[searchController.searchBar text];
+    // need to declare typedef NS_ENUM to identify the selectedScopeButtonIndex
+    [self searchForText:searchString scope:searchController.searchBar.selectedScopeButtonIndex];
+    [self.tableView reloadData];
+
+}
+
+- (void)searchForText:(NSString *)searchText scope:(UYLWorldFactsSearchScope)scopeOption
+{
+    [self.searchResults removeAllObjects];
+
+    NSPredicate *predicate;
+    
+    PFQuery *query = [self queryForTable];
+    
+    NSMutableArray *results = (NSMutableArray *)[query findObjects];
+    
+    if ([searchText  isEqualToString: @""]) {
+        
+        //...
+        
+    } else {
+        
+        if (scopeOption == searchScopeEngName) {
+            
+            predicate = [NSPredicate predicateWithFormat:@"(medMerEngName CONTAINS[cd] %@)", searchText];
+            
+        } else if (scopeOption == searchScopeScienceName) {
+            
+            predicate = [NSPredicate predicateWithFormat:@"(medScienceName CONTAINS[cd] %@)", searchText];
+        }
+        results = (NSMutableArray *)[results filteredArrayUsingPredicate:predicate];
+    }
+    
+    NSLog(@"%@", results);
+    NSLog(@"%lu", (unsigned long)[results count]);
+    
+    [self.searchResults addObjectsFromArray:results];
+    
+    NSError *error = nil;
+    
+    if (error)
+    {
+        NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
+    }
+}
+
+#pragma mark - implement searchbar by my will
+#warning TODO: delete if no needed
+-(NSArray *)filterResults:(NSString *)searchTerm {
+    
+    [self.searchResults removeAllObjects];
+    
+    PFQuery *query = [PFQuery queryWithClassName:medicineClassName];
+
+    [query whereKeyExists:@"medMerEngName"];
+    [query whereKeyExists:@"medMerChiName"];
+    [query whereKeyExists:@"medScienceName"];
+    [query whereKey:@"medMerEngName" containsString:searchTerm];
+    
+    NSArray *results = [query findObjects];
+    
+    NSLog(@"%@", results);
+    NSLog(@"%lu", (unsigned long)[results count]);
+    
+    
+    [self.searchResults addObjectsFromArray:results];
+    
+    return self.searchResults;
+}
+
+
+#pragma mark- UISearchBarDelegate Methods
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar setText:nil];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    NSString *query = searchBar.text;
+    
+    if ([query length]== 0) {
+        
+        
+        
+    } else {
+        
+        
+    }
+    
+    [self.tableView reloadData];
+}
 
 
 

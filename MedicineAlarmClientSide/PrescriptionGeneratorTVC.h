@@ -11,8 +11,9 @@
 #import <ParseUI/ParseUI.h>
 #import <Bolts/Bolts.h>
 #import "ViewController.h"
+#import "PrescriptionCell.h"
 
 
-@interface PrescriptionGeneratorTVC : PFQueryTableViewController <UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate>
+@interface PrescriptionGeneratorTVC : PFQueryTableViewController <UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CellDelegate>
 
 @end

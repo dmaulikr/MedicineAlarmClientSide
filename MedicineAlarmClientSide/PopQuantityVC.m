@@ -10,4 +10,9 @@
 
 @implementation PopQuantityVC
 
+-(void)viewDidLoad {
+    
+    self.preferredContentSize = CGSizeMake(300, 300);
+}
+
 @end

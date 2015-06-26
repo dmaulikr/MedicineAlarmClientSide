@@ -82,15 +82,15 @@ MediDataBase *shareInstance;
 }
 
 // add by col
--(void)insertMediID:(NSString *)mediID andMediImage:(UIImage *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice {
-    if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice) values (?,?,?,?,?,?,?,?,?,?)", mediID, image, merEng, merChi, science, category, ingredient, usage, sideEffect, notice]) {
+-(void)insertMediID:(NSString *)mediID andMediImage:(UIImage *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice andMedAdaptation:(NSString *)adapt{
+    if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice, medAdaptation) values (?,?,?,?,?,?,?,?,?,?,?)", mediID, image, merEng, merChi, science, category, ingredient, usage, sideEffect, notice]) {
         NSLog(@"Could not insert data:\n%@",[db lastErrorMessage]);
     };
 }
 
 // edit
--(void)updateMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice {
-    if (![db executeUpdate:@"update medicineDetail set medImage=?,medMerEngName=?,medMerChiName=?,medScienceName=?,medCategory=?,medIngredient=?,medUsage=?,medSideEffect=?,medNotice=? where medID=?", image, merEng, merChi, science, category, ingredient, usage, sideEffect, notice, mediID]) {
+-(void)updateMediID:(NSString *)mediID andMediImage:(PFObject *)image andMediMerEng:(NSString *)merEng andMediMerChi:(NSString *)merChi andMediScience:(NSString *)science andMediCategory:(NSString *)category andMedIngredient:(NSString *)ingredient andMedUsage:(NSString *)usage andMedSideEffect:(NSString *)sideEffect andMedNotice:(NSString *)notice andMedAdaptation:(NSString *)adapt{
+    if (![db executeUpdate:@"update medicineDetail set medImage=?,medMerEngName=?,medMerChiName=?,medScienceName=?,medCategory=?,medIngredient=?,medUsage=?,medSideEffect=?,medNotice=?,medAdaptation where medID=?", image, merEng, merChi, science, category, ingredient, usage, sideEffect, notice, adapt, mediID]) {
         NSLog(@"Could not update data:\n%@",[db lastErrorMessage]);
     };
 }
@@ -116,13 +116,14 @@ MediDataBase *shareInstance;
      medUsage       medUsage
      medSideEffect  medSideEffect
      medNotice      medNotice
+     medAdaptation  medAdaptation
      */
     
     FMResultSet *result = [db executeQuery:@"select count(*) from medicineDetail where medID=?", mediDict[@"medID"]];
     while ([result next]) {
         if ([result intForColumnIndex:0] == 0) {
             // addable
-            if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice) values (?,?,?,?,?,?,?,?,?,?)",
+            if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice, medAdaptation) values (?,?,?,?,?,?,?,?,?,?,?)",
                   mediDict[@"medID"],
                   mediDict[@"medImage"],
                   mediDict[@"medMerEngName"],
@@ -132,7 +133,8 @@ MediDataBase *shareInstance;
                   mediDict[@"medIngredient"],
                   mediDict[@"medUsage"],
                   mediDict[@"medSideEffect"],
-                  mediDict[@"medNotice"]]) {
+                  mediDict[@"medNotice"],
+                  mediDict[@"medAdaptation"]]) {
                 //
                 NSLog(@"Could not insertDictionary data:\n%@", [db lastErrorMessage]);
             }
@@ -154,13 +156,14 @@ MediDataBase *shareInstance;
      medUsage       medUsage
      medSideEffect  medSideEffect
      medNotice      medNotice
+     medAdaptation  medAdaptation
      */
     
     FMResultSet *result = [db executeQuery:@"select count(*) from medicineDetail where medID=?", object[@"medID"]];
     while ([result next]) {
         if ([result intForColumnIndex:0] == 0) {
             // addable
-            if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice) values (?,?,?,?,?,?,?,?,?,?)",
+            if (![db executeUpdate:@"insert into medicineDetail (medID,medImage,medMerEngName,medMerChiName,medScienceName,medCategory,medIngredient,medUsage,medSideEffect,medNotice,medAdaptation) values (?,?,?,?,?,?,?,?,?,?,?)",
 //                  object[@"medID"],
 //                  object[@"medImage"],
 //                  object[@"medMerEngName"],
@@ -170,7 +173,8 @@ MediDataBase *shareInstance;
 //                  object[@"medIngredient"],
 //                  object[@"medUsage"],
 //                  object[@"medSideEffect"],
-//                  object[@"medNotice"]
+//                  object[@"medNotice"],
+//                  object[@"medAdaptation"]
                   [object objectForKey:@"medID"],
                   [object objectForKey:@"medImage"],
                   [object objectForKey:@"medMerEngName"],
@@ -180,7 +184,8 @@ MediDataBase *shareInstance;
                   [object objectForKey:@"medIngredient"],
                   [object objectForKey:@"medUsage"],
                   [object objectForKey:@"medSideEffect"],
-                  [object objectForKey:@"medNotice"]
+                  [object objectForKey:@"medNotice"],
+                  [object objectForKey:@"medAdaptation"]
                   ]) {
                 //
                 NSLog(@"Could not insertPFObject data:\n%@", [db lastErrorMessage]);

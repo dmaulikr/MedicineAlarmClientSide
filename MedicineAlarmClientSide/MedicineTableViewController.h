@@ -13,6 +13,8 @@
 
 @interface MedicineTableViewController : PFQueryTableViewController <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, UISplitViewControllerDelegate>
 
+
+
 +(void)downloadAnimation;
 
 @end

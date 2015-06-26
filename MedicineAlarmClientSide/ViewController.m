@@ -10,7 +10,7 @@
 #import "MedicineTableViewController.h"
 #import "MedicineDetailTableViewController.h"
 
-@interface ViewController () {
+@interface ViewController ()<UITextViewDelegate> {
 
 }
 
@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *medicineDataBaseBtn;
 @property (strong, nonatomic) IBOutlet UIButton *readMeBtn;
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
+@property (strong, nonatomic) IBOutlet UIButton *sendMessageBtn;
 
 @property (retain, nonatomic) IBOutlet UIToolbar *testToolBar;
 @property (retain, nonatomic) IBOutlet UIInputView *inputView;
@@ -42,19 +43,33 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     // set notification when keyboard shows/hides
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+//    
+//    // set notification for when a key is pressed
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyPressed:) name:UITextViewTextDidChangeNotification object:nil];
+//    
+//    UITapGestureRecognizer *resignGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide)];
+//    UITapGestureRecognizer *begunEditGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardShow)];
+//    
+//    [self.view addGestureRecognizer:resignGesture];
+//    [self.chatBox addGestureRecognizer:begunEditGesture];
+//    [self.containerView addSubview:_chatBox];
+    self.chatBox.delegate = self;
+
     
-    // set notification for when a key is pressed
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyPressed:) name:UITextViewTextDidChangeNotification object:nil];
+#define BUTTONRADIUS 10;
+    _sendMessageBtn.layer.cornerRadius = BUTTONRADIUS;
+    _sendMessageBtn.clipsToBounds = YES;
     
-    UITapGestureRecognizer *resignGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide)];
-    UITapGestureRecognizer *begunEditGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardShow)];
+    _generateDescriptionBtn.layer.cornerRadius = BUTTONRADIUS;
+    _generateDescriptionBtn.clipsToBounds = YES;
     
-    [self.view addGestureRecognizer:resignGesture];
-    [self.chatBox addGestureRecognizer:begunEditGesture];
-    [self.containerView addSubview:_chatBox];
+    _medicineDataBaseBtn.layer.cornerRadius = BUTTONRADIUS;
+    _generateDescriptionBtn.clipsToBounds = YES;
     
+    _readMeBtn.layer.cornerRadius = BUTTONRADIUS;
+    _readMeBtn.clipsToBounds = YES;
     
 }
 /*
@@ -175,6 +190,23 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [self.chatBox resignFirstResponder];
+//        [PFPush sendPushMessageToChannelInBackground:@"MedicalClinic" withMessage:@"Hello World!"];
+        PFPush *push = [[PFPush alloc] init];
+        PFQuery *pushQuery = [PFInstallation query];
+            [pushQuery whereKey:@"channels" equalTo:@"MedicalPersonal"];
+        [push setQuery:pushQuery];
+        [push setMessage:[NSString stringWithFormat:@"%@", self.chatBox.text]];
+        [push sendPushInBackground];
+        self.chatBox.text = @"";
+
+        return NO;
+    }
+    return YES;
+}
+
 
 
 

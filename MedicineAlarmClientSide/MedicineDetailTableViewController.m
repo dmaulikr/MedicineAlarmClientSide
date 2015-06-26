@@ -35,9 +35,11 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 @property (weak, nonatomic) IBOutlet UITextField *medCategoryTF;
 @property (weak, nonatomic) IBOutlet UITextField *medIngredientTF;
 
+
 @property (weak, nonatomic) IBOutlet UITextView *medUsageTV;
 @property (weak, nonatomic) IBOutlet UITextView *medSideEffectTV;
 @property (weak, nonatomic) IBOutlet UITextView *medNoticeTV;
+@property (weak, nonatomic) IBOutlet UITextView *medAdaptationTV;
 
 @end
 
@@ -134,7 +136,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     _medUsageTV = nil;
     _medSideEffectTV = nil;
     _medNoticeTV = nil;
-    
+    _medAdaptationTV = nil;
 }
 
 
@@ -238,6 +240,14 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [self.medMerEngNameTF setText:self.mediDetail.medMerEngName];
     self.medMerChiNameTF.text = self.mediDetail.medMerChiName;
     [self.medCategoryTF setText:self.mediDetail.medCategory];
+    
+    [self.medUsageTV setText:self.mediDetail.medUsage];
+    [self.medAdaptationTV setText:self.mediDetail.medAdaptation];
+    [self.medIngredientTF setText:self.mediDetail.medIngredient];
+    [self.medNoticeTV setText:self.mediDetail.medNotice];
+    [self.medSideEffectTV setText:self.mediDetail.medSideEffect];
+    
+    /*
     // ingredient
     [self loadIngredient:self.mediDetail.medIngredient loadUsage:nil
           loadSideEffect:nil loadNotice:nil
@@ -252,6 +262,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
             setTextField:nil setTextView:self.medSideEffectTV];
     // notice
     [self loadIngredient:nil loadUsage:nil loadSideEffect:nil loadNotice:self.mediDetail.medNotice setTextField:nil setTextView:self.medNoticeTV];
+     */
 }
 
 #pragma mark - set each editable or uneditable
@@ -274,6 +285,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         [self.medUsageTV setEditable:NO];
         [self.medSideEffectTV setEditable:NO];
         [self.medNoticeTV setEditable:NO];
+         [self.medAdaptationTV setEditable:NO];
         //TODO:
         self.navigationItem.rightBarButtonItem = editButton;
         self.navigationItem.leftBarButtonItem = popMasterViewButton;
@@ -294,6 +306,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
         [self.medUsageTV setEditable:YES];
         [self.medSideEffectTV setEditable:YES];
         [self.medNoticeTV setEditable:YES];
+        [self.medAdaptationTV setEditable:YES];
 
         [self setNaviItemRBarBtn:cancelButton andLBarBtn:saveButton];
     }
@@ -313,6 +326,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [self.medUsageTV setEditable:NO];
     [self.medSideEffectTV setEditable:NO];
     [self.medNoticeTV setEditable:NO];
+    [self.medAdaptationTV setEditable:NO];
 
 }
 
@@ -344,6 +358,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [tmpStorage setValue:self.medUsageTV.text forKey:@"medUsageDict"];
     [tmpStorage setValue:self.medSideEffectTV.text forKey:@"medSideEffectDict"];
     [tmpStorage setValue:self.medNoticeTV.text forKey:@"medNoticeDict"];
+    [tmpStorage setValue:self.medAdaptationTV.text forKey:@"medAdaptation"];
     
 }
 // set Data to original and make it uneditable (save prior data into a dictionary)
@@ -359,6 +374,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [self.medUsageTV setText:[tmpStorage objectForKey:@"medUsageDict"]];
     [self.medSideEffectTV setText:[tmpStorage objectForKey:@"medSideEffectDict"]];
     [self.medNoticeTV setText:[tmpStorage objectForKey:@"medNoticeDict"]];
+    [self.medAdaptationTV setText:[tmpStorage objectForKey:@"medAdaptation"]];
     
     [self setAllUneditable];
 
@@ -402,6 +418,12 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
             [medObject setObject:self.medScienceTF.text forKeyedSubscript:@"medScienceName"];
             [medObject setObject:self.medCategoryTF.text forKeyedSubscript:@"medCategory"];
             
+            [medObject setObject:self.medIngredientTF.text forKey:@"medIngredient"];
+            [medObject setObject:self.medUsageTV.text forKey:@"medUsage"];
+            [medObject setObject:self.medSideEffectTV.text forKey:@"medSideEffect"];
+            [medObject setObject:self.medNoticeTV.text forKey:@"medNotice"];
+            [medObject setObject:self.medAdaptationTV.text forKeyedSubscript:@"medAdaptation"];
+            /*
             NSArray *ingredients = [self.medIngredientTF.text componentsSeparatedByString:@","];
             [medObject setObject:ingredients forKeyedSubscript:@"medIngredient"];
             
@@ -413,7 +435,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
             
             NSArray *notice = [self.medNoticeTV.text componentsSeparatedByString:@","];
             [medObject setObject:notice forKeyedSubscript:@"medNotice"];
-            
+            */
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // show progress when saving
@@ -669,7 +691,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 10;
+    return 11;
 }
 
 #pragma mark - Split view action

@@ -20,6 +20,7 @@
 @synthesize medScienceName;
 @synthesize medCategory;
 
+@synthesize medAdaptation;
 @synthesize medIngredient;
 @synthesize medUsage;
 @synthesize medSideEffect;

@@ -14,5 +14,6 @@
 }
 
 @property (strong, nonatomic) Medicine *mediAdd;
+@property (strong, nonatomic) NSNumber *lastNumber;
 
 @end

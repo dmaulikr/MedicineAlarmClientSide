@@ -10,6 +10,7 @@
 #import "MedicineTableViewController.h"
 #import "MedicineDetailTableViewController.h"
 #import "MediDataBase.h"
+#import "MediDataSingleton.h"
 
 #import "MBProgressHUD.h"
 #import <ParseUI/ParseUI.h>
@@ -34,6 +35,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 @property (weak, nonatomic) IBOutlet UITextField *medCategoryTF;
 @property (weak, nonatomic) IBOutlet UITextField *medIngredientTF;
 @property (weak, nonatomic) IBOutlet UITextField *medUsageTF;
+@property (weak, nonatomic) IBOutlet UITextField *medAdaptationTF;
 @property (weak, nonatomic) IBOutlet UITextField *medSideEffectTF;
 @property (weak, nonatomic) IBOutlet UITextField *medNoticeTF;
 
@@ -54,7 +56,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     UITapGestureRecognizer *imagepressedGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewPressedReceiveGesture:)];
     [self.medImage addGestureRecognizer:imagepressedGesture];
     [self.medImage setUserInteractionEnabled:YES];
-    
+    [self.medIDTF setEnabled:NO];
     [self.medIDTF setClearsOnInsertion:YES];
     [self.medMerEngTF setClearsOnInsertion:YES];
     [self.medMerChiTF setClearsOnInsertion:YES];
@@ -64,6 +66,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [self.medUsageTF setClearsOnInsertion:YES];
     [self.medSideEffectTF setClearsOnInsertion:YES];
     [self.medNoticeTF setClearsOnInsertion:YES];
+    [self.medAdaptationTF setClearButtonMode:YES];
     
     saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDependTextFieldIsNotEmpty)];
     popMasterButtonItem = [[UIBarButtonItem alloc] init];
@@ -128,11 +131,20 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     self.navigationItem.leftBarButtonItem = nil;
     [self resignFirstResponder];
     
+    // test for autoincrement
+    PFQuery *query = [PFQuery queryWithClassName:medicineClassName];
+    
     // Create PFObject with recipe information.
     PFObject *medObject = [PFObject objectWithClassName:medicineClassName];
     
+    /*
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    // test
     [medObject setObject:[formatter numberFromString:self.medIDTF.text] forKeyedSubscript:@"medID"];
+     */
+    [self.medIDTF setText:[NSString stringWithFormat:@"%@", [MediDataSingleton shareInstance].lastNumber]];
+    [medObject incrementKey:@"medID" byAmount:[MediDataSingleton shareInstance].lastNumber];
+    
     //TODO: Upload image fail
     
     // image
@@ -148,6 +160,12 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     [medObject setObject:self.medScienceTF.text forKeyedSubscript:@"medScienceName"];
     [medObject setObject:self.medCategoryTF.text forKeyedSubscript:@"medCategory"];
     
+    [medObject setObject:self.medAdaptationTF.text forKeyedSubscript:@"medAdaptation"];
+    [medObject setObject:self.medIngredientTF.text forKey:@"medIngredient"];
+    [medObject setObject:self.medUsageTF.text forKey:@"medUsage"];
+    [medObject setObject:self.medSideEffectTF.text forKey:@"medSideEffect"];
+    [medObject setObject:self.medNoticeTF.text forKey:@"medNotice"];
+    /*
     NSArray *ingredients = [self.medIngredientTF.text componentsSeparatedByString:@","];
     [medObject setObject:ingredients forKeyedSubscript:@"medIngredient"];
     
@@ -159,7 +177,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
     
     NSArray *notice = [self.medNoticeTF.text componentsSeparatedByString:@","];
     [medObject setObject:notice forKeyedSubscript:@"medNotice"];
-    
+    */
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDAnimationFade;
@@ -182,18 +200,26 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
                 completionHud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark@2x.png"]];
                 
                 [completionHud show:true];
-                
                 [completionHud hide:true afterDelay:1.0f];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshParse" object:nil];
                 
             } else {
                 
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Failure" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
-                
             }
         });
+        
+    }];
+    // save in local
+    [medObject pinInBackgroundWithBlock:^(BOOL success, NSError *error){
+        
+        if (success == true) {
+            // if success, refresh table view
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshParse" object:nil];
+        } else {
+            NSLog(@"Pin Error: %@", error);
+        }
     }];
     
 }
@@ -392,7 +418,7 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 10;
+    return 11;
 }
 
 /*
@@ -452,12 +478,13 @@ static NSString *medicineClassName = @"MedicineMerchadiseName";
 
 // textfield must add somthing
 -(void)saveDependTextFieldIsNotEmpty {
-    
+    /*
     if ([self.medIDTF.text isEqualToString:@""]) {
         UIAlertView *emptyAlert = [[UIAlertView alloc] initWithTitle:@"藥品ID欄位" message:@"請確實填入資料" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [emptyAlert show];
     }
-    else if ([self.medMerEngTF.text isEqualToString:@""]) {
+    */
+    if ([self.medMerEngTF.text isEqualToString:@""]) {
         UIAlertView *emptyAlert = [[UIAlertView alloc] initWithTitle:@"藥品英文欄位" message:@"請確實填入資料" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [emptyAlert show];
     }

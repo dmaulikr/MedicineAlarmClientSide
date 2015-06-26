@@ -22,9 +22,10 @@
 @property (nonatomic, strong) NSString *medScienceName;
 @property (nonatomic, strong) NSString *medCategory;
 //
-@property (nonatomic, strong) NSArray *medIngredient;
-@property (nonatomic, strong) NSArray *medUsage;
-@property (nonatomic, strong) NSArray *medSideEffect;
-@property (nonatomic, strong) NSArray *medNotice;
+@property (nonatomic, strong) NSString *medIngredient;
+@property (nonatomic, strong) NSString *medAdaptation;
+@property (nonatomic, strong) NSString *medUsage;
+@property (nonatomic, strong) NSString *medSideEffect;
+@property (nonatomic, strong) NSString *medNotice;
 
 @end
